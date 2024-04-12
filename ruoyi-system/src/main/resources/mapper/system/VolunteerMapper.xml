@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.VolunteerMapper">
+
+    <resultMap type="com.ruoyi.system.domain.Volunteer" id="VolunteerResult">
+        <result property="vtId" column="vt_id"/>
+        <result property="vtIntegralCount" column="vt_integral_count"/>
+        <result property="vtAvatar" column="vt_avatar"/>
+        <result property="vtName" column="vt_name"/>
+        <result property="vtCardno" column="vt_cardno"/>
+        <result property="vtPhone" column="vt_phone"/>
+        <result property="vtVillage" column="vt_village"/>
+        <result property="vtBuild" column="vt_build"/>
+        <result property="vtJoinDate" column="vt_join_date"/>
+        <result property="vtType" column="vt_type"/>
+        <result property="vtRemark" column="vt_remark"/>
+        <result property="isDel" column="is_del"/>
+        <result property="createId" column="create_id"/>
+        <result property="createUser" column="create_user"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateUser" column="update_user"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateId" column="update_id"/>
+        <result property="volAddress" column="volAddress"/>
+    </resultMap>
+
+    <sql id="selectVolunteerVo">
+        select vt_id, vt_integral_count, vt_avatar, vt_name, vt_cardno, vt_phone, vt_village, vt_build, vt_join_date, vt_type, vt_remark, is_del, create_id, create_user, create_time, update_user, update_time, update_id, volAddress from volunteer
+    </sql>
+
+    <select id="selectVolunteerList" parameterType="com.ruoyi.system.domain.Volunteer" resultMap="VolunteerResult">
+        <include refid="selectVolunteerVo"/>
+        <where>
+            <if test="vtIntegralCount != null ">and vt_integral_count = #{vtIntegralCount}</if>
+            <if test="vtAvatar != null  and vtAvatar != ''">and vt_avatar = #{vtAvatar}</if>
+            <if test="vtName != null  and vtName != ''">and vt_name like concat('%', #{vtName}, '%')</if>
+            <if test="vtCardno != null  and vtCardno != ''">and vt_cardno = #{vtCardno}</if>
+            <if test="vtPhone != null  and vtPhone != ''">and vt_phone = #{vtPhone}</if>
+            <if test="vtVillage != null ">and vt_village = #{vtVillage}</if>
+            <if test="vtBuild != null ">and vt_build = #{vtBuild}</if>
+            <if test="vtJoinDate != null ">and vt_join_date = #{vtJoinDate}</if>
+            <if test="vtType != null ">and vt_type = #{vtType}</if>
+            <if test="vtRemark != null  and vtRemark != ''">and vt_remark = #{vtRemark}</if>
+            <if test="isDel != null ">and is_del = #{isDel}</if>
+            <if test="createId != null ">and create_id = #{createId}</if>
+            <if test="createUser != null  and createUser != ''">and create_user = #{createUser}</if>
+            <if test="updateUser != null  and updateUser != ''">and update_user = #{updateUser}</if>
+            <if test="updateId != null ">and update_id = #{updateId}</if>
+            <if test="volAddress != null  and volAddress != ''">and volAddress = #{volAddress}</if>
+        </where>
+    </select>
+
+    <select id="selectVolunteerByVtId" parameterType="Long" resultMap="VolunteerResult">
+        <include refid="selectVolunteerVo"/>
+        where vt_id = #{vtId}
+    </select>
+
+    <insert id="insertVolunteer" parameterType="com.ruoyi.system.domain.Volunteer" useGeneratedKeys="true"
+            keyProperty="vtId">
+        insert into volunteer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="vtIntegralCount != null">vt_integral_count,</if>
+            <if test="vtAvatar != null">vt_avatar,</if>
+            <if test="vtName != null">vt_name,</if>
+            <if test="vtCardno != null">vt_cardno,</if>
+            <if test="vtPhone != null">vt_phone,</if>
+            <if test="vtVillage != null">vt_village,</if>
+            <if test="vtBuild != null">vt_build,</if>
+            <if test="vtJoinDate != null">vt_join_date,</if>
+            <if test="vtType != null">vt_type,</if>
+            <if test="vtRemark != null">vt_remark,</if>
+            <if test="isDel != null">is_del,</if>
+            <if test="createId != null">create_id,</if>
+            <if test="createUser != null">create_user,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateUser != null">update_user,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="updateId != null">update_id,</if>
+            <if test="volAddress != null">volAddress,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="vtIntegralCount != null">#{vtIntegralCount},</if>
+            <if test="vtAvatar != null">#{vtAvatar},</if>
+            <if test="vtName != null">#{vtName},</if>
+            <if test="vtCardno != null">#{vtCardno},</if>
+            <if test="vtPhone != null">#{vtPhone},</if>
+            <if test="vtVillage != null">#{vtVillage},</if>
+            <if test="vtBuild != null">#{vtBuild},</if>
+            <if test="vtJoinDate != null">#{vtJoinDate},</if>
+            <if test="vtType != null">#{vtType},</if>
+            <if test="vtRemark != null">#{vtRemark},</if>
+            <if test="isDel != null">#{isDel},</if>
+            <if test="createId != null">#{createId},</if>
+            <if test="createUser != null">#{createUser},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateUser != null">#{updateUser},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="updateId != null">#{updateId},</if>
+            <if test="volAddress != null">#{volAddress},</if>
+        </trim>
+    </insert>
+
+    <update id="updateVolunteer" parameterType="com.ruoyi.system.domain.Volunteer">
+        update volunteer
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="vtIntegralCount != null">vt_integral_count = #{vtIntegralCount},</if>
+            <if test="vtAvatar != null">vt_avatar = #{vtAvatar},</if>
+            <if test="vtName != null">vt_name = #{vtName},</if>
+            <if test="vtCardno != null">vt_cardno = #{vtCardno},</if>
+            <if test="vtPhone != null">vt_phone = #{vtPhone},</if>
+            <if test="vtVillage != null">vt_village = #{vtVillage},</if>
+            <if test="vtBuild != null">vt_build = #{vtBuild},</if>
+            <if test="vtJoinDate != null">vt_join_date = #{vtJoinDate},</if>
+            <if test="vtType != null">vt_type = #{vtType},</if>
+            <if test="vtRemark != null">vt_remark = #{vtRemark},</if>
+            <if test="isDel != null">is_del = #{isDel},</if>
+            <if test="createId != null">create_id = #{createId},</if>
+            <if test="createUser != null">create_user = #{createUser},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateUser != null">update_user = #{updateUser},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateId != null">update_id = #{updateId},</if>
+            <if test="volAddress != null">volAddress = #{volAddress},</if>
+        </trim>
+        where vt_id = #{vtId}
+    </update>
+
+    <delete id="deleteVolunteerByVtId" parameterType="Long">
+        delete from volunteer where vt_id = #{vtId}
+    </delete>
+
+    <delete id="deleteVolunteerByVtIds" parameterType="String">
+        delete from volunteer where vt_id in
+        <foreach item="vtId" collection="array" open="(" separator="," close=")">
+            #{vtId}
+        </foreach>
+    </delete>
+
+    <!--新增内容  selectVolunteerByIds-->
+    <select id="selectVolunteerByIds" resultType="java.lang.Long">
+        SELECT vt_id FROM volunteer
+        <where>
+            is_del = 0
+            <if test="ids != null ">
+                and vt_id IN
+                <foreach item="id" collection="ids" open="(" separator="," close=")">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
+
+    </select>
+    <!-- selectVolunteerByNotIds -->
+    <select id="selectVolunteerByNotIds" resultType="java.lang.Long">
+        SELECT vt_id FROM volunteer
+        <where>
+            is_del = 0
+            <if test="ids != null ">
+                and vt_id not IN
+                <foreach item="id" collection="ids" open="(" separator="," close=")">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
+
+    </select>
+
+    <!-- 批量更新  updateVolunteerList-->
+    <update id="updateVolunteerList">
+        <foreach collection="volunteers" item="volunteer" separator=";">
+            UPDATE volunteer
+            <set>
+                <choose>
+                    <when test="volunteer.is_del!=null and volunteer.is_del!=''">
+                        is_del = #{volunteer.is_del},
+                    </when>
+                    <when test="volunteer.vtAvatar!=null  and volunteer.vtAvatar !=''">
+                        vt_avatar = #{vtAvatar},
+                    </when>
+                    <when test="volunteer.vtIntegralCount!=null  and volunteer.vtIntegralCount !=''">
+                        t_integral_count = #{vtIntegralCount},
+                    </when>
+                    <when test="volunteer.vtName!=null  and volunteer.vtName !=''">
+                        vt_name = #{vtName},
+                    </when>
+                </choose>
+            </set>
+            WHERE id = #{volunteer.id}
+        </foreach>
+    </update>
+
+    <!--addAllVolunteerList-->
+    <!-- <insert id="addAllVolunteerList" parameterType="java.util.List">
+         <foreach collection="volunteers" item="volunteer" separator=";">
+             insert into volunteer
+             <trim prefix="(" suffix=")" suffixOverrides=",">
+                 <if test="volunteer.vtIntegralCount != null">vt_integral_count,</if>
+                 <if test="volunteer.vtName != null and volunteer.vtName !=''">vt_name,</if>
+             </trim>
+             values
+             <trim prefix="(" suffix=")" suffixOverrides=",">
+                 <if test="volunteer.vtIntegralCount != null">#{volunteer.vtIntegralCount},</if>
+                 <if test="volunteer.vtName != null and volunteer.vtName !=''">#{volunteer.vtName},</if>
+             </trim>
+             ON DUPLICATE KEY UPDATE
+             <trim suffixOverrides=",">
+                 <if test="volunteer.vtIntegralCount != null">vt_integral_count = #{volunteer.vtIntegralCount},</if>
+                 <if test="volunteer.vtName != null and volunteer.vtName !=''">vt_name = #{volunteer.vtName},</if>
+             </trim>
+
+
+         </foreach>
+
+
+     </insert>-->
+    <!-- parameterType="java.util.List" -->
+    <insert id="addAllVolunteerList01" parameterType="java.util.List">
+
+        insert into volunteer(vt_integral_count,vt_name)
+        values
+        <foreach collection="volunteers" item="volunteer" index="index" separator=",">
+            <if test="volunteer.vtIntegralCount != null">(#{volunteer.vtIntegralCount},</if>
+            <if test="volunteer.vtName != null and volunteer.vtName !=''">#{volunteer.vtName})</if>
+
+        </foreach>
+
+
+    </insert>
+
+
+    <insert id="addAllVolunteerList02" parameterType="java.util.List">
+        insert into volunteer(vt_integral_count,vt_name)
+        values
+        <foreach collection="volunteers" item="volunteer" index="index" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="volunteer.vtIntegralCount != null">#{volunteer.vtIntegralCount,jdbcType=INTEGER},</if>
+                <if test="volunteer.vtName != null and volunteer.vtName !=''">#{volunteer.vtName,jdbcType=VARCHAR},</if>
+            </trim>
+        </foreach>
+    </insert>
+
+    <insert id="addAllVolunteerList03" parameterType="com.ruoyi.system.domain.Volunteer">
+        insert into volunteer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="vtIntegralCount != null">vt_integral_count,</if>
+            <if test="vtName != null and vtName !=''">vt_name,</if>
+        </trim>
+        <foreach collection="volunteers" item="volunteer" index="index" separator=",">
+            <trim prefix="values(" suffix=")" suffixOverrides=",">
+                <if test="volunteer.vtIntegralCount != null">#{volunteer.vtIntegralCount},</if>
+                <if test="volunteer.vtName != null and volunteer.vtName !=''">#{volunteer.vtName},</if>
+            </trim>
+        </foreach>
+    </insert>
+
+    <insert id="addAllVolunteerList04" parameterType="java.util.List">
+        <foreach collection="volunteers" item="item" index="index" separator=";">
+            insert into volunteer
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="item.vtIntegralCount != null">vt_integral_count,</if>
+                <if test="item.vtName != null and item.vtName !=''">vt_name,</if>
+            </trim>
+            <trim prefix="values(" suffix=")" suffixOverrides=",">
+                <if test="item.vtIntegralCount != null">#{item.vtIntegralCount},</if>
+                <if test="item.vtName != null and item.vtName !=''">#{item.vtName},</if>
+            </trim>
+        </foreach>
+    </insert>
+
+
+    <insert id="addAllVolunteerList" parameterType="java.util.List">
+
+        insert into volunteer( vt_integral_count,vt_name)
+        values
+        <foreach collection="volunteers" item="volunteer" index="index" separator=",">
+            (#{volunteer.vtIntegralCount},#{volunteer.vtName} )
+        </foreach>
+
+
+    </insert>
+
+</mapper>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ResidentialquartersinfoMapper">
+    
+    <resultMap type="com.ruoyi.system.domain.Residentialquartersinfo" id="ResidentialquartersinfoResult">
+        <result property="id"    column="id"    />
+        <result property="number"    column="number"    />
+        <result property="residentialQuarters"    column="residentialQuarters"    />
+        <result property="buildingNo"    column="buildingNo"    />
+        <result property="roomNo"    column="roomNo"    />
+        <result property="oldInFo"    column="oldInFo"    />
+    </resultMap>
+
+    <sql id="selectResidentialquartersinfoVo">
+        select id, number, residentialQuarters, buildingNo, roomNo, oldInFo from residentialquartersinfo
+    </sql>
+
+    <select id="selectResidentialquartersinfoList" parameterType="Residentialquartersinfo" resultMap="ResidentialquartersinfoResult">
+        <include refid="selectResidentialquartersinfoVo"/>
+        <where>  
+            <if test="number != null  and number != ''"> and number = #{number}</if>
+            <if test="residentialQuarters != null  and residentialQuarters != ''"> and residentialQuarters = #{residentialQuarters}</if>
+            <if test="buildingNo != null "> and buildingNo = #{buildingNo}</if>
+            <if test="roomNo != null "> and roomNo = #{roomNo}</if>
+            <if test="oldInFo != null  and oldInFo != ''"> and oldInFo = #{oldInFo}</if>
+        </where>
+    </select>
+    
+    <select id="selectResidentialquartersinfoById" parameterType="Integer" resultMap="ResidentialquartersinfoResult">
+        <include refid="selectResidentialquartersinfoVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertResidentialquartersinfo" parameterType="Residentialquartersinfo" useGeneratedKeys="true" keyProperty="id">
+        insert into residentialquartersinfo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="number != null">number,</if>
+            <if test="residentialQuarters != null">residentialQuarters,</if>
+            <if test="buildingNo != null">buildingNo,</if>
+            <if test="roomNo != null">roomNo,</if>
+            <if test="oldInFo != null">oldInFo,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="number != null">#{number},</if>
+            <if test="residentialQuarters != null">#{residentialQuarters},</if>
+            <if test="buildingNo != null">#{buildingNo},</if>
+            <if test="roomNo != null">#{roomNo},</if>
+            <if test="oldInFo != null">#{oldInFo},</if>
+         </trim>
+    </insert>
+
+    <update id="updateResidentialquartersinfo" parameterType="Residentialquartersinfo">
+        update residentialquartersinfo
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="number != null">number = #{number},</if>
+            <if test="residentialQuarters != null">residentialQuarters = #{residentialQuarters},</if>
+            <if test="buildingNo != null">buildingNo = #{buildingNo},</if>
+            <if test="roomNo != null">roomNo = #{roomNo},</if>
+            <if test="oldInFo != null">oldInFo = #{oldInFo},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteResidentialquartersinfoById" parameterType="Integer">
+        delete from residentialquartersinfo where id = #{id}
+    </delete>
+
+    <delete id="deleteResidentialquartersinfoByIds" parameterType="String">
+        delete from residentialquartersinfo where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
